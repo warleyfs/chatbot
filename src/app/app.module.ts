@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NbThemeModule } from '@nebular/theme';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule} from '@angular/common/http';
-import { NbSidebarModule, NbLayoutModule, NbButtonModule, NbChatModule, NbStepperModule, NbCardModule } from '@nebular/theme';
+import { NbThemeModule, NbSidebarModule, NbLayoutModule, NbButtonModule, NbChatModule, NbStepperModule, NbCardModule, NbInputModule, NbIconModule, NbFormFieldModule } from '@nebular/theme';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 @NgModule({
   declarations: [
@@ -22,6 +22,10 @@ import { NbSidebarModule, NbLayoutModule, NbButtonModule, NbChatModule, NbSteppe
     HttpClientModule,
     NbCardModule,
     NbChatModule.forRoot({ messageGoogleMapKey: 'MAP_KEY' }),
+    NbInputModule,
+    NbEvaIconsModule,
+    NbIconModule,
+    NbFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]

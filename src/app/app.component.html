@@ -1,7 +1,11 @@
 <nb-layout>
   <nb-layout-header fixed class="toolbar">
+    <button nbButton status="success" size="tiny" (click)="toggle()">Toggle</button>
     <img width="40" alt="Logo Itaú" src="../assets/logo-itau.png" />
-    <span>Welcome</span>
+    <nb-form-field>
+      <input type="text" nbInput fullWidth fieldSize="small" class="search-box">
+      <nb-icon nbSuffix icon="at-outline" pack="eva"></nb-icon>
+    </nb-form-field>
     <div class="spacer"></div>
     <a aria-label="Angular on twitter" target="_blank" rel="noopener" href="https://twitter.com/angular"
       title="Twitter">
@@ -23,53 +27,39 @@
     </a>
   </nb-layout-header>
 
-  <nb-layout-column>
-    <div class="resume">
-      <nb-layout-column>
-        Conteúdo 1
-      </nb-layout-column>
-      <nb-layout-column>
-        Conteúdo 1
-      </nb-layout-column>
-      <nb-layout-column>
-        Conteúdo 1
-      </nb-layout-column>
-      <nb-layout-column>
-        Conteúdo 1
-      </nb-layout-column>
-    </div>
-    <br>
+  <nb-layout-column class="tracking">
+
     <div class="stepper">
-      <nb-stepper orientation="vertical">
-        <nb-step [label]="label1">
+      <nb-stepper orientation="vertical" [selectedIndex]="currentStep">
+        <nb-step [label]="label1" [completed]="step1Completed">
           <ng-template #label1>
             <label>Passo 1</label>
             <br>
             <label>Análise de crédito</label>
           </ng-template>
         </nb-step>
-        <nb-step [label]="label2">
+        <nb-step [label]="label2" [completed]="step2Completed">
           <ng-template #label2>
             <label>Passo 2</label>
             <br>
             <label>Formulários</label>
           </ng-template>
         </nb-step>
-        <nb-step [label]="label3">
+        <nb-step [label]="label3" [completed]="step3Completed">
           <ng-template #label3>
             <label>Passo 3</label>
             <br>
             <label>Envio de documentação e avaliação</label>
           </ng-template>
         </nb-step>
-        <nb-step [label]="label4">
+        <nb-step [label]="label4" [completed]="step4Completed">
           <ng-template #label4>
             <label>Passo 4</label>
             <br>
             <label>Confirmação de dados</label>
           </ng-template>
         </nb-step>
-        <nb-step [label]="label5">
+        <nb-step [label]="label5" [completed]="step5Completed">
           <ng-template #label5>
             <label>Passo 5</label>
             <br>
@@ -78,22 +68,48 @@
         </nb-step>
       </nb-stepper>
     </div>
-  
+
+    <div class="resume">
+      <nb-card class="card-container">
+        <nb-card-body class="card-body">
+          <label class="resume-item-title">Valor do imóvel</label>
+          <label class="resume-item-value">R$ 100.000,00</label>
+        </nb-card-body>
+      </nb-card>
+      <nb-card class="card-container">
+        <nb-card-body class="card-body">
+          <label class="resume-item-title">Valor do crédito</label>
+          <label class="resume-item-value">R$ 58.000,00</label>
+        </nb-card-body>
+      </nb-card>
+      <nb-card class="card-container">
+        <nb-card-body class="card-body">
+          <label class="resume-item-title">Prazo</label>
+          <label class="resume-item-value">240 meses</label>
+        </nb-card-body>
+      </nb-card>
+      <nb-card class="card-container">
+        <nb-card-body class="card-body">
+          <label class="resume-item-title">Taxa de juros</label>
+          <label class="resume-item-value">23,90% a.a.</label>
+        </nb-card-body>
+      </nb-card>
+    </div>
+
+    <div class="attached-files">
+      <button nbButton class="btn-attached-files" status="primary">arquivo anexado visualizar</button>
+    </div>
+
+    <div class="resume-button">
+      <button nbButton class="btn-resume" status="primary">ver resumo</button>
+    </div>
   </nb-layout-column>
-  
+
   <nb-layout-column class="chatbot">
-    <nb-chat title="Nebular Conversational UI" size="large">
-      <nb-chat-message *ngFor="let msg of messages"
-                       [type]="msg.type"
-                       [message]="msg.text"
-                       [reply]="msg.reply"
-                       [sender]="msg.user.name"
-                       [date]="msg.date"
-                       [files]="msg.files"
-                       [quote]="msg.quote"
-                       [latitude]="msg.latitude"
-                       [longitude]="msg.longitude"
-                       [avatar]="msg.user.avatar">
+    <nb-chat title="Assistente virtual Itaú" size="giant" status="primary">
+      <nb-chat-message *ngFor="let msg of messages" [type]="msg.type" [message]="msg.text" [reply]="msg.reply"
+        [sender]="msg.user.name" [date]="msg.date" [files]="msg.files" [quote]="msg.quote" [latitude]="msg.latitude"
+        [longitude]="msg.longitude" [avatar]="msg.user.avatar">
       </nb-chat-message>
       <nb-chat-form (send)="sendMessage($event)" [dropFiles]="true">
       </nb-chat-form>

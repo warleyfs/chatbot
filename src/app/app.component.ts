@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ChatGPTService } from './services/chatgpt.service';
+import { NbSidebarService } from '@nebular/theme';
 
 @Component({
   selector: 'app-root',
@@ -8,10 +9,16 @@ import { ChatGPTService } from './services/chatgpt.service';
   providers: [ChatGPTService]
 })
 export class AppComponent {
+  currentStep = 3;
+  step1Completed = true;
+  step2Completed = true;
+  step3Completed = true;
+  step4Completed = false;
+  step5Completed = false;
   title = 'chatbot';
   messages: any[] = [];
 
-  constructor(protected chatGPTService: ChatGPTService) {
+  constructor(protected chatGPTService: ChatGPTService, private sidebarService: NbSidebarService) {
     this.messages.push({
       text: 'Olá, sou o agente do Itaú! Como posso ajudar?',
       date: new Date(),
@@ -21,8 +28,12 @@ export class AppComponent {
       user: {
         name: 'Jonh Doe',
         avatar: 'https://i.gifer.com/no.gif',
-      },
+      }
     });
+  }
+
+  toggle() {
+    this.sidebarService.toggle(false, 'left');
   }
 
   sendMessage(event: any) {

@@ -23,12 +23,20 @@
     opacity: 0.8;
 }
 
+.search-box {
+    border-radius: 16px !important;
+}
+
 .spacer {
     flex: 1;
 }
 
 .stepper {
     height: 50%;
+}
+
+.buttons {
+    margin-top: 10px;
 }
 
 nb-stepper .header .connector {
@@ -50,7 +58,63 @@ nb-chat {
     width: 100%;
 }
 
+.tracking {
+    justify-content: initial;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+.chatbot {
+    height: 100%;
+}
+
 .resume {
     display: inline-flex;
-    height: 100px;
+    height: 200px;
+    width: 100%;
+    align-content: end;
+    margin-top: 16px;
+}
+
+.card-container {
+    border-radius: 10px;
+    border-color: #ec7000;
+    background-color: #ec7000;
+    margin-right: 10px;
+    width: 180px;
+    height: 180px;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    padding: auto;
+    text-align: left;
+    color: white;
+    place-content: end;
+}
+
+.resume-item-title {
+    font-size: small;
+    font-weight: normal;
+}
+
+.resume-item-value {
+    font-size: medium;
+    font-weight: bolder;
+}
+
+.attached-files {
+    margin-bottom: 16px;
+}
+
+.btn-attached-files {
+    background-color: transparent !important;
+    border-color: #36f !important;
+    color: #36f !important;
+}
+
+.btn-resume {
+    background-color: #ec7000 !important;
+    border-color: #ec7000 !important;
 }
