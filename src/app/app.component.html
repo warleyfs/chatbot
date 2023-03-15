@@ -3,7 +3,8 @@
     <img width="40" alt="Logo Itaú" src="../assets/logo-itau.png" />
     <span>Welcome</span>
     <div class="spacer"></div>
-    <a aria-label="Angular on twitter" target="_blank" rel="noopener" href="https://twitter.com/angular" title="Twitter">
+    <a aria-label="Angular on twitter" target="_blank" rel="noopener" href="https://twitter.com/angular"
+      title="Twitter">
       <svg id="twitter-logo" height="24" data-name="Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
         <rect width="400" height="400" fill="none" />
         <path
@@ -11,34 +12,97 @@
           fill="#fff" />
       </svg>
     </a>
-    <a aria-label="Angular on YouTube" target="_blank" rel="noopener" href="https://youtube.com/angular" title="YouTube">
-      <svg id="youtube-logo" height="24" width="24" data-name="Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#fff">
+    <a aria-label="Angular on YouTube" target="_blank" rel="noopener" href="https://youtube.com/angular"
+      title="YouTube">
+      <svg id="youtube-logo" height="24" width="24" data-name="Logo" xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24" fill="#fff">
         <path d="M0 0h24v24H0V0z" fill="none" />
         <path
           d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3-5.2 3z" />
       </svg>
     </a>
   </nb-layout-header>
-  <nb-layout-header subheader>
-    Teste de subheader
-  </nb-layout-header>
+
   <nb-layout-column>
-    <nb-stepper orientation="vertical">
-      <nb-step label="step number one">
-          // ... step content here
-      </nb-step>
-      <nb-step label="stepLabel">
-          <ng-template #stepLabel>
-              <div>
-                  step number two
-              </div>
+    <div class="resume">
+      <nb-layout-column>
+        Conteúdo 1
+      </nb-layout-column>
+      <nb-layout-column>
+        Conteúdo 1
+      </nb-layout-column>
+      <nb-layout-column>
+        Conteúdo 1
+      </nb-layout-column>
+      <nb-layout-column>
+        Conteúdo 1
+      </nb-layout-column>
+    </div>
+    <br>
+    <div class="stepper">
+      <nb-stepper orientation="vertical">
+        <nb-step [label]="label1">
+          <ng-template #label1>
+            <label>Passo 1</label>
+            <br>
+            <label>Análise de crédito</label>
           </ng-template>
-          // ... step content here
-      </nb-step>
-    </nb-stepper>
+        </nb-step>
+        <nb-step [label]="label2">
+          <ng-template #label2>
+            <label>Passo 2</label>
+            <br>
+            <label>Formulários</label>
+          </ng-template>
+        </nb-step>
+        <nb-step [label]="label3">
+          <ng-template #label3>
+            <label>Passo 3</label>
+            <br>
+            <label>Envio de documentação e avaliação</label>
+          </ng-template>
+        </nb-step>
+        <nb-step [label]="label4">
+          <ng-template #label4>
+            <label>Passo 4</label>
+            <br>
+            <label>Confirmação de dados</label>
+          </ng-template>
+        </nb-step>
+        <nb-step [label]="label5">
+          <ng-template #label5>
+            <label>Passo 5</label>
+            <br>
+            <label>Liberação de crédito</label>
+          </ng-template>
+        </nb-step>
+      </nb-stepper>
+    </div>
+  
+  </nb-layout-column>
+  
+  <nb-layout-column class="chatbot">
+    <nb-chat title="Nebular Conversational UI" size="large">
+      <nb-chat-message *ngFor="let msg of messages"
+                       [type]="msg.type"
+                       [message]="msg.text"
+                       [reply]="msg.reply"
+                       [sender]="msg.user.name"
+                       [date]="msg.date"
+                       [files]="msg.files"
+                       [quote]="msg.quote"
+                       [latitude]="msg.latitude"
+                       [longitude]="msg.longitude"
+                       [avatar]="msg.user.avatar">
+      </nb-chat-message>
+      <nb-chat-form (send)="sendMessage($event)" [dropFiles]="true">
+      </nb-chat-form>
+    </nb-chat>
   </nb-layout-column>
 
-  <nb-layout-footer>Contact us</nb-layout-footer>
+  <nb-layout-footer fixed>
+
+  </nb-layout-footer>
 </nb-layout>
 
 <router-outlet></router-outlet>

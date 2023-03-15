@@ -3,7 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NbThemeModule } from '@nebular/theme';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NbSidebarModule, NbLayoutModule, NbButtonModule, NbChatModule, NbStepperModule } from '@nebular/theme';
+import { HttpClientModule} from '@angular/common/http';
+import { NbSidebarModule, NbLayoutModule, NbButtonModule, NbChatModule, NbStepperModule, NbCardModule } from '@nebular/theme';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,9 @@ import { NbSidebarModule, NbLayoutModule, NbButtonModule, NbChatModule, NbSteppe
     NbButtonModule,
     NbChatModule,
     NbStepperModule,
+    HttpClientModule,
+    NbCardModule,
+    NbChatModule.forRoot({ messageGoogleMapKey: 'MAP_KEY' }),
   ],
   providers: [],
   bootstrap: [AppComponent]
