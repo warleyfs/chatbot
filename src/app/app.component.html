@@ -1,5 +1,5 @@
 <nb-layout>
-  <nb-layout-header fixed>
+  <nb-layout-header fixed class="toolbar">
     <img width="40" alt="Logo Itaú" src="../assets/logo-itau.png" />
     <span>Welcome</span>
     <div class="spacer"></div>
@@ -21,7 +21,22 @@
   </nb-layout-header>
 
   <nb-layout-column>
-    Page Content <button nbButton>Hello World</button>
+    <nb-layout-header subheader>
+      Teste de subheader
+    </nb-layout-header>
+    <nb-stepper orientation="vertical">
+      <nb-step label="step number one">
+          // ... step content here
+      </nb-step>
+      <nb-step label="stepLabel">
+          <ng-template #stepLabel>
+              <div>
+                  step number two
+              </div>
+          </ng-template>
+          // ... step content here
+      </nb-step>
+    </nb-stepper>
   </nb-layout-column>
 
   <nb-layout-footer>Contact us</nb-layout-footer>
