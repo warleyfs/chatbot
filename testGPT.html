@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ChatGPT</title>
+</head>
+<body>
+  <h1>ChatGPT</h1>
+
+  <label for="mensagem">Mensagem:</label>
+  <input type="text" id="mensagem" name="mensagem">
+
+  <button onclick="enviarMensagem()">Enviar</button>
+
+  <div id="resposta"></div>
+
+  <script>
+    function enviarMensagem() {
+
+      const mensagem = document.getElementById("mensagem").value;
+
+      const url = "https://api.openai.com/v1/chat/completions ";
+
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer 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"
+        },
+        body: JSON.stringify(
+        
+        {
+            "messages": [            
+            {"role": "user", "content": mensagem}
+            ],	
+            "model": "gpt-3.5-turbo",
+            "temperature": 0.7,
+            "max_tokens": 60
+        }
+        
+        )
+      })
+      .then(response => response.json())
+      .then(data => {
+        const resposta = data.choices[0].message.content;
+        document.getElementById("resposta").innerHTML = resposta;
+      })
+      .catch(error => console.log(error));
+    }
+  </script>
+</body>
+</html>
