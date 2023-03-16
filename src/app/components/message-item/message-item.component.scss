@@ -1,0 +1,34 @@
+.list-group-item {
+  align-items: flex-start;
+  margin: 15px 15px 0px 15px;
+  background-color: #f9f9f9;
+}
+
+.message-container {
+  width: 80%;
+}
+
+.message {
+  font-size: 1em;
+  font-style: normal;
+  font-weight: 400;
+  width: 100%;
+}
+
+.timeform {
+  float: left;
+  width: 100%;
+
+  i {
+    //margin-left: 20px;
+  }
+
+  .timestamp {
+    font-size: 0.6em;
+  }
+}
+
+.avatar {
+  width: 50px;
+  margin-right: 20px;
+}

@@ -1,12 +1,18 @@
 <nb-layout>
   <nb-layout-header fixed class="toolbar">
-    <button nbButton status="success" size="tiny" (click)="toggle()">Toggle</button>
+    <button class="menu-button" nbButton size="large" (click)="toggle()">
+      <nb-icon class="menu-button-icon" icon="menu-outline"></nb-icon>
+    </button>
+    
     <img width="40" alt="Logo Itaú" src="../assets/logo-itau.png" />
-    <nb-form-field>
-      <input type="text" nbInput fullWidth fieldSize="small" class="search-box">
-      <nb-icon nbSuffix icon="at-outline" pack="eva"></nb-icon>
+    
+    <nb-form-field class="search-box-holder">
+      <input type="text" nbInput fullWidth fieldSize="tiny" class="search-box" placeholder="Busque por cartão, extrato, comprovantes...">
+      <nb-icon nbSuffix icon="search-outline" pack="eva"></nb-icon>
     </nb-form-field>
+
     <div class="spacer"></div>
+    
     <a aria-label="Angular on twitter" target="_blank" rel="noopener" href="https://twitter.com/angular"
       title="Twitter">
       <svg id="twitter-logo" height="24" data-name="Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
@@ -16,6 +22,7 @@
           fill="#fff" />
       </svg>
     </a>
+    
     <a aria-label="Angular on YouTube" target="_blank" rel="noopener" href="https://youtube.com/angular"
       title="YouTube">
       <svg id="youtube-logo" height="24" width="24" data-name="Logo" xmlns="http://www.w3.org/2000/svg"
@@ -29,47 +36,57 @@
 
   <nb-layout-column class="tracking">
 
-    <div class="stepper">
-      <nb-stepper orientation="vertical" [selectedIndex]="currentStep">
+    <div class="stepper" *ngIf="!showResume">
+      <nb-stepper orientation="vertical" [selectedIndex]="currentStep" disableStepNavigation>
         <nb-step [label]="label1" [completed]="step1Completed">
           <ng-template #label1>
-            <label>Passo 1</label>
-            <br>
-            <label>Análise de crédito</label>
+            <div [class]="getStepCompletionStatusClass(0)">
+              <label>Passo 1</label>
+              <br>
+              <label>Análise de crédito</label>
+            </div>
           </ng-template>
         </nb-step>
         <nb-step [label]="label2" [completed]="step2Completed">
           <ng-template #label2>
-            <label>Passo 2</label>
-            <br>
-            <label>Formulários</label>
+            <div [class]="getStepCompletionStatusClass(1)">
+              <label>Passo 2</label>
+              <br>
+              <label>Formulários</label>
+            </div>
           </ng-template>
         </nb-step>
         <nb-step [label]="label3" [completed]="step3Completed">
           <ng-template #label3>
-            <label>Passo 3</label>
-            <br>
-            <label>Envio de documentação e avaliação</label>
+            <div [class]="getStepCompletionStatusClass(2)">
+              <label>Passo 3</label>
+              <br>
+              <label>Envio de documentação e avaliação</label>
+            </div>
           </ng-template>
         </nb-step>
         <nb-step [label]="label4" [completed]="step4Completed">
           <ng-template #label4>
-            <label>Passo 4</label>
-            <br>
-            <label>Confirmação de dados</label>
+            <div [class]="getStepCompletionStatusClass(3)">
+              <label>Passo 4</label>
+              <br>
+              <label>Confirmação de dados</label>
+            </div>
           </ng-template>
         </nb-step>
         <nb-step [label]="label5" [completed]="step5Completed">
           <ng-template #label5>
-            <label>Passo 5</label>
-            <br>
-            <label>Liberação de crédito</label>
+            <div [class]="getStepCompletionStatusClass(4)">
+              <label>Passo 5</label>
+              <br>
+              <label>Liberação de crédito</label>
+            </div>
           </ng-template>
         </nb-step>
       </nb-stepper>
     </div>
 
-    <div class="resume">
+    <div class="resume" *ngIf="!showResume">
       <nb-card class="card-container">
         <nb-card-body class="card-body">
           <label class="resume-item-title">Valor do imóvel</label>
@@ -96,24 +113,45 @@
       </nb-card>
     </div>
 
-    <div class="attached-files">
+    <div class="attached-files" *ngIf="!showResume">
       <button nbButton class="btn-attached-files" status="primary">arquivo anexado visualizar</button>
+    </div>
+    
+    <div class="resume-content" *ngIf="showResume">
+      <nb-card>
+        <nb-card-header class="resume-contet-header">
+          <nb-icon class="menu-button-icon" icon="menu-2-outline"></nb-icon>
+          Resumo
+        </nb-card-header>
+        <nb-card-body>
+          <div *ngFor="let resumeItem of resumeData" class="resume-data">
+            <label class="resume-item-value">{{resumeItem.title}}</label>
+            <br>
+            <label class="resume-item-title">{{resumeItem.value}}</label>
+          </div>
+        </nb-card-body>
+      </nb-card>
     </div>
 
     <div class="resume-button">
-      <button nbButton class="btn-resume" status="primary">ver resumo</button>
+      <button nbButton class="btn-resume" status="primary" (click)="toggleResume()" *ngIf="!showResume">ver resumo</button>
+      <button nbButton class="btn-resume" status="primary" (click)="toggleResume()" *ngIf="showResume">ver tracking</button>
     </div>
   </nb-layout-column>
 
   <nb-layout-column class="chatbot">
-    <nb-chat title="Assistente virtual Itaú" size="giant" status="primary">
+    <!-- <nb-chat title="Assistente virtual Itaú" size="giant" status="primary">
       <nb-chat-message *ngFor="let msg of messages" [type]="msg.type" [message]="msg.text" [reply]="msg.reply"
         [sender]="msg.user.name" [date]="msg.date" [files]="msg.files" [quote]="msg.quote" [latitude]="msg.latitude"
         [longitude]="msg.longitude" [avatar]="msg.user.avatar">
       </nb-chat-message>
       <nb-chat-form (send)="sendMessage($event)" [dropFiles]="true">
       </nb-chat-form>
-    </nb-chat>
+    </nb-chat> -->
+    <div class="chatform">
+      <message-list [messages]="messages" (sendSimpleMessage)="sendUserOptionMessage($event)"></message-list>
+      <message-form [userMessage]="userMessage" [messages]="messages"></message-form>
+    </div>
   </nb-layout-column>
 
   <nb-layout-footer fixed>

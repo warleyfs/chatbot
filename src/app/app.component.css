@@ -23,6 +23,24 @@
     opacity: 0.8;
 }
 
+.menu-button {
+    border-radius: 0% !important;
+    background-color: #ae5100 !important;
+    border-color: #ae5100 !important;
+    color: white !important;
+    height: 76px;
+    width: 50px;
+}
+
+.menu-button-icon {
+    height: 2.75rem !important;
+    width: 2.75rem !important;
+}
+
+.search-box-holder {
+    width: 400px;
+}
+
 .search-box {
     border-radius: 16px !important;
 }
@@ -49,6 +67,18 @@ nb-stepper .header .connector {
     border-color: #ec7000 !important;
 }
 
+.stepper-label-completed {
+    color: green !important;
+}
+
+.stepper-label-current {
+    color: #ec7000 !important;
+}
+
+.stepper-label-todo {
+    color: gray !important;
+}
+
 ::ng-deep nb-layout-column {
     justify-content: center;
     display: flex;
@@ -64,6 +94,10 @@ nb-chat {
     margin-bottom: 16px;
 }
 
+.nb-theme-default nb-stepper.vertical .header .connector {
+    margin: 0 1rem !important;
+}
+
 .chatbot {
     height: 100%;
 }
@@ -73,7 +107,7 @@ nb-chat {
     height: 200px;
     width: 100%;
     align-content: end;
-    margin-top: 16px;
+    margin-top: 24px;
 }
 
 .card-container {
@@ -117,4 +151,17 @@ nb-chat {
 .btn-resume {
     background-color: #ec7000 !important;
     border-color: #ec7000 !important;
+}
+
+.resume-data {
+    margin-bottom: 10px;
+}
+
+.resume-contet-header {
+    display: inline-flex;
+    align-items: center;
+}
+
+.chatform {
+    width: 100%;
 }

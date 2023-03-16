@@ -1,0 +1,6 @@
+<div class="chatlist" #chatlist>
+    <ul class="list-group">
+      <message-item *ngFor="let msg of messages" [message]="msg" (sendSimpleMessage)="sendSimpleText($event)"></message-item>
+    </ul>
+  </div>
+  

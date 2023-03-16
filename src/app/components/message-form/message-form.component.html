@@ -1,0 +1,5 @@
+<div class="chatcontrol">
+    <input type="text" class="form-control chatinput" [(ngModel)]="userMessage" (keyup.enter)="sendMessage(undefined)"/>
+    <button class="btn btn-success sendbtn" (click)="sendMessage(undefined)">Enviar</button>
+  </div>
+  
