@@ -34,6 +34,7 @@ export class MessageFormComponent implements OnInit {
 
   public sendMessage(userMessageText: Message | undefined): void {
     
+    console.log(this.userMessage);
     // Envia a mensagem do usuário para a janela de chat.
     if (userMessageText) {
       this.messages.push(userMessageText);
@@ -66,19 +67,12 @@ export class MessageFormComponent implements OnInit {
             messagesToSend.content!.push(action_buttons);
             break;
           }
-        case 2: // Card
+        case 2: // To You Know Card
           {
             const title = response.title;
-            const subtitle = response.subtitle;
             const text = response.speech;
-            const imageUrl = response.imageUrl;
             const buttons = new Array<Button>();
-  
-            response.buttons.forEach(button => {
-              buttons.push(new Button(button.title, button.url, () => {}));
-            });
-  
-            const card = new Content('basic_card', text, title, subtitle, imageUrl, buttons);
+            const card = new Content('to_you_know', text, title, '', '', buttons);
   
             messagesToSend.content!.push(card);
             break;
@@ -106,7 +100,7 @@ export class MessageFormComponent implements OnInit {
   private getResponseByUserMessage(userMessage: string) : Array<ConversationalResponse> {
     
     let response = new Array<ConversationalResponse>();
-
+    
     switch (userMessage) {
       case 'Eduarda Costa Leal':
         let msg1 = new ConversationalResponse();
@@ -139,8 +133,8 @@ export class MessageFormComponent implements OnInit {
         let msg5 = new ConversationalResponse();
 
         const buttons = new Array<Button>();
-        buttons.push(new Button('Sim', '', () => { console.log('Sim'); this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'Sim', undefined, undefined, undefined, undefined)), false)); }));
-        buttons.push(new Button('Não', '', () => { console.log('Não'); this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'Não', undefined, undefined, undefined, undefined)), false)); }));
+        buttons.push(new Button('Sim', '', () => { this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'Sim', undefined, undefined, undefined, undefined)), false)); }));
+        buttons.push(new Button('Não', '', () => { this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'Não', undefined, undefined, undefined, undefined)), false)); }));
         
         msg5.speech = `Você autoriza o débito do valor total ou parcial da(s) parcela(s) em sua conta corrente acima indicadas, 
         na data do vencimento ou após, podendo ser utilizado o limite do cheque especial, se contratado, evitando 
@@ -153,17 +147,28 @@ export class MessageFormComponent implements OnInit {
       case 'Sim':
         let msg6 = new ConversationalResponse();
         msg6.type = 0;
-        msg6.speech = ``;
+        msg6.speech = `Ok. Entendi. Vamos continuar... Agora vamos falar dos custos. Para esse crédito você precisa escolher se deseja incorporar o IOF no financiamento ou não.`;
 
         response.push(msg6);
-        break;
-      case `Ok. Entendi. Vamos continuar... Agora vamos falar dos custos. Para esse crédito você precisa escolher se deseja incorporar o IOF no financiamento ou não.`:
-        let msg7 = new ConversationalResponse();
-        msg7.type = 0;
-        msg7.speech = ``;
 
-        response.push(msg7);
+        let cardIOF = new ConversationalResponse();
+        cardIOF.type = 2;
+        cardIOF.title = 'Pra você saber';
+        cardIOF.speech = `IOF é o imposto sobre operações financeiras, é uma arrecadação do Governo.
+        A alíquota é aplicada sobre o valor financiado, para essa proposta o valor chega aproximadamente 3%.
+        Ao incorporar, esse valor é adicionado ao valor financiamento, caso opte em não financiar o valor será 
+        descontado do montante a ser creditado no ato a liberação de recurso.`;
+
+        response.push(cardIOF);
+
         break;
+      // case ``:
+      //   let msg7 = new ConversationalResponse();
+      //   msg7.type = 0;
+      //   msg7.speech = ``;
+
+      //   response.push(msg7);
+      //   break;
       // case 'Mostre-me um card.':
       //   const buttons = new Array<Button>();
       //   buttons.push(new Button('Botão 1', 'https://www.google.com'));

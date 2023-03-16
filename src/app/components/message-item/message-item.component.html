@@ -10,7 +10,7 @@
 
         <!-- action_buttons -->
         <div *ngSwitchCase="'action_buttons'">
-          <div class="basic-card-1-holder">
+          <div class="action-buttons-holder">
             <span width="100">{{ content.text }}</span>
           </div>
           <div class="action-buttons">
@@ -19,17 +19,17 @@
           </div>
         </div>
 
-        <!-- basic_card -->
-        <div *ngSwitchCase="'basic_card'">
-          <div class="card" style="width: 18rem;">
-            <img class="card-img-top" [src]="content.imageUrl" [alt]="content.title">
-            <div class="card-body p-2">
-              <h5 class="card-title">{{ content.subtitle }}</h5>
-              <p class="card-text">{{ content.text }}</p>
-              <a *ngFor="let button of content.buttons" [href]="button.url" target="_blank" role="button"
-                class="btn btn-primary btn-sm mr-2">{{ button.title }}</a>
-            </div>
-          </div>
+        <!-- to_you_know -->
+        <div *ngSwitchCase="'to_you_know'">
+          <nb-card style="margin-bottom: 0;">
+            <nb-card-header style="color: goldenrod;">
+              <nb-icon icon="bulb-outline" size="medium" pack="eva"></nb-icon>
+              {{content.title}}
+            </nb-card-header>
+            <nb-card-body>
+              {{content.text}}
+            </nb-card-body>
+          </nb-card>
         </div>
 
         <!-- link_out_chip -->
