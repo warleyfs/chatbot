@@ -3,6 +3,7 @@ import { Content } from '../../models/content';
 import { Message } from './../../models';
 import { Button } from '../../models/button';
 import { ConversationalResponse } from 'src/app/models/conversational-response';
+import { environment } from "../../../environments/environment";
 
 @Component({
   selector: 'message-form',
@@ -48,7 +49,7 @@ export class MessageFormComponent implements OnInit {
     let responses = this.getResponseByUserMessage(this.userMessage)     
     let messagesToSend = new Message('../../../assets/julio-avatar.png', new Date(), new Array<Content>(), true);
     console.log(responses);
-    responses.forEach(response => {
+    responses.then(resp=> resp.forEach(response => {
       switch (response.type) {
         case 0: // Simple Text
           {
@@ -84,7 +85,7 @@ export class MessageFormComponent implements OnInit {
             messagesToSend.content!.push(new Content('simple_text', 'Desculpe, não entendi. Poderia repetir?', undefined, undefined, undefined, undefined));
           }
       }
-    });
+    }));
 
     this.messages.push(messagesToSend);
     this.userMessage = '';
@@ -99,7 +100,40 @@ export class MessageFormComponent implements OnInit {
     return url;
   }
 
-  private getResponseByUserMessage(userMessage: string) : Array<ConversationalResponse> {
+  private async getJSON(mensagem: string) {
+    const baseURL = environment.chatGPT.endpoint;
+    const token = environment.chatGPT.token;
+    
+    return fetch(`${baseURL}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify(          
+          {
+              "messages": [            
+              {"role": "user", "content": mensagem}
+              ],	
+              "model": "gpt-3.5-turbo",
+              "temperature": 0.7,
+              "max_tokens": 60
+          }          
+          )
+        })
+        .then(response => response.json())
+        .then(data => {
+          return data          
+        })
+        .catch(error => console.log(error)); 
+  }
+
+  private async caller(mensagem: string): Promise<string> {
+    const json = await this.getJSON(mensagem);  
+    return json.choices[0].message.content;
+  }
+
+  private async getResponseByUserMessage(userMessage: string) : Promise<Array<ConversationalResponse>> {
     
     let response = new Array<ConversationalResponse>();
     
@@ -209,11 +243,19 @@ export class MessageFormComponent implements OnInit {
         response.push(msg9);
         break;
       default:
-        let msgFallback = new ConversationalResponse();
-        msgFallback.type = 0;
-        msgFallback.speech  = 'Desculpe Duda, não entendi, poderia repetir?';
-
-        response.push(msgFallback);
+        if(userMessage.includes("ITBI") || userMessage.includes("Imposto")){
+          let msgFallback = new ConversationalResponse();
+          var value =  await this.caller(userMessage)        
+          msgFallback.type = 0;
+          msgFallback.speech = value
+          response.push(msgFallback);
+        }
+        else{
+          let msgFallback = new ConversationalResponse();
+          msgFallback.type = 0;
+          msgFallback.speech  = 'Desculpe Duda, não entendi, poderia repetir?';
+          response.push(msgFallback);
+        }
     }
     
     return response;
