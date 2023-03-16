@@ -20,49 +20,83 @@ export class MessageFormComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    let initContentTemplate = new Array<Content>();
+    initContentTemplate.push(new Content('simple_text', 'Que bom ter você aqui!', undefined, undefined, undefined, undefined));
+    initContentTemplate.push(new Content('simple_text', 'Eu sou o Júlio, seu assistente virtual.', undefined, undefined, undefined, undefined));
+    initContentTemplate.push(new Content('simple_text', `Agora, vamos dar continuidade no seu processo de contratação? Analisando aqui, 
+    vi que precisamos atualizar seu cadastro, Poderia por favor me informar o seu nome completo? Ah, pode ficar tranquilo, não compartilho seus dados 
+    com ninguém sua autorização, ok? Eu prometo!`, undefined, undefined, undefined, undefined));
+
+    let initMessageTemplate = new Message('../../../assets/julio-avatar.png', new Date(), initContentTemplate, true);
+
+    this.messages.push(initMessageTemplate);
   }
 
   public sendMessage(userMessageText: Message | undefined): void {
-    console.log(userMessageText)
+    
+    // Envia a mensagem do usuário para a janela de chat.
     if (userMessageText) {
       this.messages.push(userMessageText);
     } else {
       this.messages.push(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', this.userMessage, undefined, undefined, undefined, undefined)), false));
     }
 
-    const response = this.getResponseByUserMessage(this.userMessage) 
-    const message = new Message('../../../assets/julio-avatar.png', new Date(), new Array<Content>(), true);
+    // Envia a(s) respostas do bot para a janela de chat
+    let responses = this.getResponseByUserMessage(this.userMessage) 
+    console.log(responses)
+    
+    let messagesToSend = new Message('../../../assets/julio-avatar.png', new Date(), new Array<Content>(), true);
+    console.log(messagesToSend)
 
-    switch (response.type) {
-      case 0:
-        {
-          console.log(message)
-          message.content!.push(new Content('simple_text', response.speech, undefined, undefined, undefined, undefined));
-          break;
-        }
-      case 1: // Card
-        {
-          const title = response.title;
-          const subtitle = response.subtitle;
-          const text = response.speech;
-          const imageUrl = response.imageUrl;
-          const buttons = new Array<Button>();
+    responses.forEach(response => {
+      switch (response.type) {
+        case 0: // Simple Text
+          {
+            messagesToSend.content!.push(new Content('simple_text', response.speech, undefined, undefined, undefined, undefined));
+            break;
+          }
+        case 1: // Action Buttons
+          {            
+            const text = response.speech;
+            const buttons = new Array<Button>();
+  
+            response.buttons.forEach(button => {
+              buttons.push(new Button(button.title, '', button.action));
+            });
+  
+            const action_buttons = new Content('action_buttons', text, '', '', '', buttons);
+  
+            messagesToSend.content!.push(action_buttons);
+            break;
+          }
+        case 2: // Card
+          {
+            const title = response.title;
+            const subtitle = response.subtitle;
+            const text = response.speech;
+            const imageUrl = response.imageUrl;
+            const buttons = new Array<Button>();
+  
+            response.buttons.forEach(button => {
+              buttons.push(new Button(button.title, button.url, () => {}));
+            });
+  
+            const card = new Content('basic_card', text, title, subtitle, imageUrl, buttons);
+  
+            messagesToSend.content!.push(card);
+            break;
+          }
+        default:
+          {
+            messagesToSend.content!.push(new Content('simple_text', 'Desculpe, não entendi. Poderia repetir?', undefined, undefined, undefined, undefined));
+          }
+      }
+    });
 
-          response.buttons.forEach(button => {
-            buttons.push(new Button(button.title, button.url));
-          });
-
-          const card = new Content('basic_card', text, title, subtitle, imageUrl, buttons);
-
-          message.content!.push(card);
-          break;
-        }
-      default:
-        {
-          message.content!.push(new Content('simple_text', 'Desculpe, não entendi. Poderia repetir?', undefined, undefined, undefined, undefined));
-        }
-    }
-    this.messages.push(message);
+    console.log(messagesToSend);
+    console.log(this.messages);
+    this.messages.push(messagesToSend);
+    console.log(this.messages);
     this.userMessage = '';
   }
 
@@ -75,31 +109,86 @@ export class MessageFormComponent implements OnInit {
     return url;
   }
 
-  private getResponseByUserMessage(userMessage: string) : ConversationalResponse {
+  private getResponseByUserMessage(userMessage: string) : Array<ConversationalResponse> {
     
-    let response = new ConversationalResponse();
+    let response = new Array<ConversationalResponse>();
 
     switch (userMessage) {
-      case 'Mostre-me um texto simples.':
-        response.type = 0;
-        response.speech = 'Esta é a resposta em um texto simples.';
-        break;
-      case 'Mostre-me um card.':
-        const buttons = new Array<Button>();
-        buttons.push(new Button('Botão 1', 'https://www.google.com'));
-        buttons.push(new Button('Botão 2', 'https://www.google.com'));
-        
-        response.speech = 'Texto para o card';
-        response.subtitle = 'Subtítulo do card';
-        response.title = 'Título do card';
-        response.imageUrl = 'https://www.mactip.net/wp-content/uploads/2016/11/macbook-battery-charge-286x180.jpg';
-        response.type = 1;
-        response.buttons = buttons;
+      case 'Eduarda Costa Leal':
+        let msg1 = new ConversationalResponse();
+        msg1.type = 0;
+        msg1.speech = 'E como prefere ser chamada?';
 
+        response.push(msg1);
         break;
+      case 'Duda':
+        let msg2 = new ConversationalResponse();
+        msg2.type = 0;
+        msg2.speech = `Legal, Duda! Agora, preciso do seu telefone para contato com o DDD. Digite por favor sem caracteres especiais, tudo junto. Por exemplo: 3199457848.`;
+
+        response.push(msg2);
+        break;
+      case '31983174822':
+        let msg3 = new ConversationalResponse();
+        msg3.type = 0;
+        msg3.speech = `Ótimo! Agora, vou precisar do número da sua agência e conta com dígido. Exemplo: Ag xxxx C xxxxx-x.`;
+        
+        response.push(msg3);
+        break;
+      case 'Ag 1234 C 12345-0':
+        let msg4 = new ConversationalResponse();
+        msg4.type = 0;
+        msg4.speech = `Perfeito, Duda. Agora vou precisar de uma autorização sua.`;
+
+        response.push(msg4);
+      
+        let msg5 = new ConversationalResponse();
+
+        const buttons = new Array<Button>();
+        buttons.push(new Button('Sim', '', () => { console.log('Sim'); this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'Sim', undefined, undefined, undefined, undefined)), false)); }));
+        buttons.push(new Button('Não', '', () => { console.log('Não'); this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'Não', undefined, undefined, undefined, undefined)), false)); }));
+        
+        msg5.speech = `Você autoriza o débito do valor total ou parcial da(s) parcela(s) em sua conta corrente acima indicadas, 
+        na data do vencimento ou após, podendo ser utilizado o limite do cheque especial, se contratado, evitando 
+        atrasos nos pagamentos?`;
+        msg5.type = 1;
+        msg5.buttons = buttons;
+
+        response.push(msg5);
+        break;
+      case 'Sim':
+        let msg6 = new ConversationalResponse();
+        msg6.type = 0;
+        msg6.speech = ``;
+
+        response.push(msg6);
+        break;
+      case `Ok. Entendi. Vamos continuar... Agora vamos falar dos custos. Para esse crédito você precisa escolher se deseja incorporar o IOF no financiamento ou não.`:
+        let msg7 = new ConversationalResponse();
+        msg7.type = 0;
+        msg7.speech = ``;
+
+        response.push(msg7);
+        break;
+      // case 'Mostre-me um card.':
+      //   const buttons = new Array<Button>();
+      //   buttons.push(new Button('Botão 1', 'https://www.google.com'));
+      //   buttons.push(new Button('Botão 2', 'https://www.google.com'));
+        
+      //   response.speech = 'Texto para o card';
+      //   response.subtitle = 'Subtítulo do card';
+      //   response.title = 'Título do card';
+      //   response.imageUrl = 'https://www.mactip.net/wp-content/uploads/2016/11/macbook-battery-charge-286x180.jpg';
+      //   response.type = 1;
+      //   response.buttons = buttons;
+
+      //   break;
       default:
-        response.type = 0;
-        response.speech  = 'Não entendi, poderia repetir?';
+        let msgFallback = new ConversationalResponse();
+        msgFallback.type = 0;
+        msgFallback.speech  = 'Desculpe Duda, não entendi, poderia repetir?';
+
+        response.push(msgFallback);
     }
     
     return response;

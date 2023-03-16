@@ -4,19 +4,20 @@
     <div class="message">
       <div [ngSwitch]="content.type" class="mb-3">
         <!-- simple_text -->
-        <div [class]="message.fromBot ? 'bot-simple-text-holder' : 'user-simple-text-holder'">
-          <span width="100" *ngSwitchCase="'simple_text'">{{ content.text }}</span>
+        <div *ngSwitchCase="'simple_text'" [class]="message.fromBot ? 'bot-simple-text-holder' : 'user-simple-text-holder'">
+          <span width="100">{{ content.text }}</span>
         </div>
 
-        <!-- <nb-card *ngSwitchCase="'simple_text'">
-          <nb-card-header>Nebula</nb-card-header>
-          <nb-card-body>
-            A nebula is an interstellar cloud of dust, hydrogen, helium and other ionized gases.
-            Originally, nebula was a name for any diffuse astronomical object,
-            including galaxies beyond the Milky Way.
-          </nb-card-body>
-          <nb-card-footer>By Wikipedia</nb-card-footer>
-        </nb-card> -->
+        <!-- action_buttons -->
+        <div *ngSwitchCase="'action_buttons'">
+          <div class="basic-card-1-holder">
+            <span width="100">{{ content.text }}</span>
+          </div>
+          <div class="action-buttons">
+            <button nbButton outline size="small" *ngFor="let button of content.buttons" class="action-button" style="margin-right: 5px; color: #58595c; border-color: #58595c;" (click)="button.action()">{{ button.title }} 
+            </button>
+          </div>
+        </div>
 
         <!-- basic_card -->
         <div *ngSwitchCase="'basic_card'">
@@ -29,11 +30,6 @@
                 class="btn btn-primary btn-sm mr-2">{{ button.title }}</a>
             </div>
           </div>
-        </div>
-
-        <!-- carousel_card -->
-        <div *ngSwitchCase="'carousel_card'">
-
         </div>
 
         <!-- link_out_chip -->

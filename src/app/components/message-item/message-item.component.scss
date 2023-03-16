@@ -20,6 +20,14 @@
   color: white;
 }
 
+.basic-card-1-holder {
+  background-color: color(srgb 0.0289 0.2022 0.6013);
+  border-radius: 4px 4px 0 4px;
+  padding: 8px;
+  font-size: smaller;
+  color: white;
+}
+
 .user-simple-text-holder {
   background-color: white;
   border-radius: 6px 6px 0 6px;
@@ -54,4 +62,15 @@
   width: 50px;
   height: 50px;
   margin-left: 20px;
+}
+
+.action-buttons {
+  margin: 5px 5px 5px 0 !important;
+
+}
+
+::ng-deep .action-buttons nb-button {
+  margin-right: 5px !important;
+  color: #58595c !important;
+  border-color: #58595c !important;
 }
