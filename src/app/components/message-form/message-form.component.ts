@@ -42,11 +42,8 @@ export class MessageFormComponent implements OnInit {
     }
 
     // Envia a(s) respostas do bot para a janela de chat
-    let responses = this.getResponseByUserMessage(this.userMessage) 
-    console.log(responses)
-    
+    let responses = this.getResponseByUserMessage(this.userMessage)     
     let messagesToSend = new Message('../../../assets/julio-avatar.png', new Date(), new Array<Content>(), true);
-    console.log(messagesToSend)
 
     responses.forEach(response => {
       switch (response.type) {
@@ -93,10 +90,7 @@ export class MessageFormComponent implements OnInit {
       }
     });
 
-    console.log(messagesToSend);
-    console.log(this.messages);
     this.messages.push(messagesToSend);
-    console.log(this.messages);
     this.userMessage = '';
   }
 
@@ -183,6 +177,30 @@ export class MessageFormComponent implements OnInit {
       //   response.buttons = buttons;
 
       //   break;
+      case `Vi que você avançou para a próxima etapa.`:
+        let msg8 = new ConversationalResponse();
+
+        const buttons8 = new Array<Button>();
+        buttons8.push(new Button('O que é o crédito com garantia de imóveis?', '', () => { this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'O que é o crédito com garantia de imóveis?', undefined, undefined, undefined, undefined)), false)); }));
+        buttons8.push(new Button('Quais as taxas envolvidas neste produto?', '', () => { this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'Não', undefined, undefined, undefined, undefined)), false)); }));
+        buttons8.push(new Button('Quanto tempo leva para acontecer o crédito na conta?', '', () => { this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'Não', undefined, undefined, undefined, undefined)), false)); }));
+        buttons8.push(new Button('Posso amortizar as parcelas posteriormente?', '', () => { this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'Não', undefined, undefined, undefined, undefined)), false)); }));
+        buttons8.push(new Button('O que é IOF', '', () => { this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'Não', undefined, undefined, undefined, undefined)), false)); }));
+        buttons8.push(new Button('Como fica o valor do IOF caso eu queira incorporar no CGI?', '', () => { this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'Não', undefined, undefined, undefined, undefined)), false)); }));
+
+        msg8.speech = `Estou aqui para ajudar no que precisar certo? Aliás, segue alguns tópicos que são dúvidas comuns dos nossos clientes nessa etapa! Você pode usar essas dicas, ou se preferir me perguntar diretamente!`;
+        msg8.type = 1;
+        msg8.buttons = buttons8;
+
+        response.push(msg8);
+        break;
+      case `O que é o crédito com garantia de imóveis?`:
+        let msg9 = new ConversationalResponse();
+        msg9.type = 0;
+        msg9.speech = `O Crédito com Garantia de Imóvel Itaú te ajuda a colocar seus planos em prática. Use o empréstimo como quiser, conte com taxa fixa e tenha até 20 anos para pagar.`;
+
+        response.push(msg9);
+        break;
       default:
         let msgFallback = new ConversationalResponse();
         msgFallback.type = 0;

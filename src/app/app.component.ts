@@ -46,17 +46,6 @@ export class AppComponent {
 
   constructor(protected chatGPTService: ChatGPTService, private sidebarService: NbSidebarService) {
     
-    // let message1 = this.botMessageTemplate;
-    // message1.text = 'Olá! Sou o Júlio! E tô aqui pra te ajudar!';
-    // this.messages.push(message1);
-
-    // let message2 = this.botMessageTemplate;
-    // message2.text = 'Que bom ter você aqui!';
-    // this.messages.push(message2);
-
-    // let message3 = this.botMessageTemplate;
-    // message3.text = 'Agora, preciso do seu nome completo';
-    // this.messages.push(message3);
   }
   
   toggleResume() {
@@ -78,31 +67,6 @@ export class AppComponent {
 
   public sendUserOptionMessage(simpleText: string) {
     this.chatForm!.userMessage = simpleText;
-    this.chatForm!.sendMessage(new Message('assets/images/user.png', new Date(), new Array<Content>(new Content('simple_text', simpleText, undefined, undefined, undefined, undefined))));
+    this.chatForm!.sendMessage(new Message('../assets/julio-avatar.png', new Date(), new Array<Content>(new Content('simple_text', simpleText, undefined, undefined, undefined, undefined)), true));
   }
-
-  // sendMessage(event: any) {
-  //   const files = !event.files ? [] : event.files.map((file: File) => {
-  //     return {
-  //       url: file.webkitRelativePath,
-  //       type: file.type,
-  //       icon: 'file-text-outline',
-  //     };
-  //   });
-  //   this.messages.push({
-  //     text: event.message,
-  //     date: new Date(),
-  //     reply: true,
-  //     type: files.length ? 'file' : 'text',
-  //     files: files,
-  //     user: {
-  //       name: 'Jonh Doe',
-  //       avatar: 'https://i.gifer.com/no.gif',
-  //     },
-  //   });
-  //   const botReply = this.chatGPTService.getResponse(event.message, '', '')
-  //   if (botReply) {
-  //     setTimeout(() => { this.messages.push(botReply) }, 500);
-  //   }
-  // }
 }

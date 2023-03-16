@@ -136,6 +136,7 @@
     <div class="resume-button">
       <button nbButton class="btn-resume" status="primary" (click)="toggleResume()" *ngIf="!showResume">ver resumo</button>
       <button nbButton class="btn-resume" status="primary" (click)="toggleResume()" *ngIf="showResume">ver tracking</button>
+      <button nbButton class="btn-resume" status="primary" (click)="sendUserOptionMessage('Vi que você avançou para a próxima etapa.')">avançar</button>
     </div>
   </nb-layout-column>
 
