@@ -239,23 +239,14 @@ export class MessageFormComponent implements OnInit {
         let msg9 = new ConversationalResponse();
         msg9.type = 0;
         msg9.speech = `O Crédito com Garantia de Imóvel Itaú te ajuda a colocar seus planos em prática. Use o empréstimo como quiser, conte com taxa fixa e tenha até 20 anos para pagar.`;
-
         response.push(msg9);
         break;
-      default:
-        if(userMessage.includes("ITBI") || userMessage.includes("Imposto")){
-          let msgFallback = new ConversationalResponse();
-          var value =  await this.caller(userMessage)        
-          msgFallback.type = 0;
-          msgFallback.speech = value
-          response.push(msgFallback);
-        }
-        else{
-          let msgFallback = new ConversationalResponse();
-          msgFallback.type = 0;
-          msgFallback.speech  = 'Desculpe Duda, não entendi, poderia repetir?';
-          response.push(msgFallback);
-        }
+      default:        
+        let msgFallback = new ConversationalResponse();
+        var value =  await this.caller(userMessage)        
+        msgFallback.type = 0;
+        msgFallback.speech = value
+        response.push(msgFallback);
     }
     
     return response;
