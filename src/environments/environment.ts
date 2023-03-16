@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   chatGPT: {
-    endpoint: '',
+    endpoint: 'https://api.openai.com/v1/chat/completions',
     token: ''
   }
 };
