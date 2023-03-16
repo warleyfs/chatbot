@@ -57,11 +57,6 @@
     margin-top: 10px;
 }
 
-nb-stepper .header .connector {
-    background-color: #ec7000 !important;
-    margin: 0 1rem 0 1rem !important;
-}
-
 .step.completed .label-index {
     background-color: #ec7000 !important;
     border-color: #ec7000 !important;
@@ -78,11 +73,11 @@ nb-stepper .header .connector {
 .stepper-label-todo {
     color: gray !important;
 }
-
+/* 
 ::ng-deep nb-layout-column {
     justify-content: center;
     display: flex;
-}
+} */
 
 nb-chat {
     width: 100%;
@@ -91,15 +86,7 @@ nb-chat {
 .tracking {
     justify-content: initial;
     flex-direction: column;
-    margin-bottom: 16px;
-}
-
-.nb-theme-default nb-stepper.vertical .header .connector {
-    margin: 0 1rem !important;
-}
-
-.chatbot {
-    height: 100%;
+    background-color: white;
 }
 
 .resume {
@@ -160,6 +147,20 @@ nb-chat {
 .resume-contet-header {
     display: inline-flex;
     align-items: center;
+}
+
+.chatbot {
+    height: 100%;
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    background-color: white;
+    position: fixed;
+    top: 76px;
+    right: -1px;
 }
 
 .chatform {

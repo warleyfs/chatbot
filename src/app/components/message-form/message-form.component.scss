@@ -1,20 +1,30 @@
-.chatcontrol{
-    float: left;
-    width: 100%;
+.chatcontrol {
+  float: left;
+  width: 48%;
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+
+  .message-input-actions {
     position: fixed;
-    bottom: 0;
-  
-    .chatinput {
-      width: 80%;
-      float: left;
-      border-radius: 0;
-    }
-  
-    .sendbtn {
-      width: 20%;
-      float: left;
-      border-radius: 0;
-      text-transform: uppercase;
-    }
+    right: 16px;
+    bottom: 24px;
   }
-  
+
+  ::ng-deep nb-action nb-icon {
+    color: #ec7000 !important;
+  }
+
+  .chatinput {
+    width: 80%;
+    float: left;
+    border-radius: 0;
+  }
+
+  .sendbtn {
+    width: 20%;
+    float: left;
+    border-radius: 0;
+    text-transform: uppercase;
+  }
+}

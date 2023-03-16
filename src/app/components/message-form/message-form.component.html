@@ -1,5 +1,8 @@
 <div class="chatcontrol">
-    <input type="text" class="form-control chatinput" [(ngModel)]="userMessage" (keyup.enter)="sendMessage(undefined)"/>
-    <button class="btn btn-success sendbtn" (click)="sendMessage(undefined)">Enviar</button>
-  </div>
-  
+    <input required fullWidth shape="round" nbInput [(ngModel)]="userMessage" (keyup.enter)="sendMessage(undefined)">
+    <nb-actions size="small" class="message-input-actions">
+      <nb-action class="message-input-action-icon" icon="paper-plane-outline" pack="eva" (click)="sendMessage(undefined)"></nb-action>
+      <nb-action class="message-input-action-icon" icon="mic-outline" pack="eva" (click)="sendMessage(undefined)"></nb-action>
+      <nb-action class="message-input-action-icon" icon="upload-outline" pack="eva" (click)="sendMessage(undefined)"></nb-action>
+    </nb-actions>
+</div>

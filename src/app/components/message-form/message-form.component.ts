@@ -1,11 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-// import { DialogflowService } from '../../services/dialogflow.service';
-// import { LinkOutChip } from './../../models/link-out-chip';
-// import { CarouselCard } from './../../models/carousel-card';
-// import { SuggestionChip } from './../../models/suggestion-chip';
-// import { ListCard } from './../../models/list-card';
-// import { BasicCard } from './../../models/basic-card';
-// import { SimpleText } from './../../models/simple-text';
 import { Content } from '../../models/content';
 import { Message } from './../../models';
 import { Button } from '../../models/button';
@@ -34,15 +27,16 @@ export class MessageFormComponent implements OnInit {
     if (userMessageText) {
       this.messages.push(userMessageText);
     } else {
-      this.messages.push(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', this.userMessage, undefined, undefined, undefined, undefined))));
+      this.messages.push(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', this.userMessage, undefined, undefined, undefined, undefined)), false));
     }
 
     const response = this.getResponseByUserMessage(this.userMessage) 
-    const message = new Message('assets/images/bot.png');
+    const message = new Message('../../../assets/julio-avatar.png', new Date(), new Array<Content>(), true);
 
     switch (response.type) {
       case 0:
         {
+          console.log(message)
           message.content!.push(new Content('simple_text', response.speech, undefined, undefined, undefined, undefined));
           break;
         }
@@ -63,33 +57,6 @@ export class MessageFormComponent implements OnInit {
           message.content!.push(card);
           break;
         }
-      // case 2: // Suggestion Chip
-      //   {
-      //     const suggestions = Array<Button>();
-
-      //     // msg.replies.forEach(suggestion => {
-      //     //   suggestions.push(new Button(suggestion, ''));
-      //     // });
-
-      //     message.content!.push(new SuggestionChip(suggestions));
-
-      //     break;
-      //   }
-      // case 'list_card': // List Response
-      //   {
-      //     message.content!.push(new ListCard());
-      //     break;
-      //   }
-      // case 'carousel_card': // Carousel Card
-      //   {
-      //     message.content!.push(new CarouselCard());
-      //     break;
-      //   }
-      // case 'link_out_chip': // Link Out Chip
-      //   {
-      //     message.content!.push(new LinkOutChip(msg.payload.destinationName, this.getFormattedUrl(msg.payload.url)));
-      //     break;
-      //   }
       default:
         {
           message.content!.push(new Content('simple_text', 'Desculpe, não entendi. Poderia repetir?', undefined, undefined, undefined, undefined));

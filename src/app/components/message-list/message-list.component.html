@@ -1,6 +1,10 @@
 <div class="chatlist" #chatlist>
-    <ul class="list-group">
-      <message-item *ngFor="let msg of messages" [message]="msg" (sendSimpleMessage)="sendSimpleText($event)"></message-item>
-    </ul>
+  <div class="chat-bot-presentation">
+    <h4>Olá! Sou o Júlio</h4>
+    <p class="chat-bot-presentation-subtitle">E tô aqui pra te ajudar!</p>
   </div>
-  
+  <ul class="list-group">
+    <message-item *ngFor="let msg of messages" [message]="msg"
+      (sendSimpleMessage)="sendSimpleText($event)"></message-item>
+  </ul>
+</div>

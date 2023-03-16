@@ -149,14 +149,14 @@
       </nb-chat-form>
     </nb-chat> -->
     <div class="chatform">
+      <div class="chat-header">
+        <img width="40" alt="Avatar Itaú" src="../assets/itau-avatar.png" />
+        <label>Assistente Virtual CGI</label>
+      </div>
       <message-list [messages]="messages" (sendSimpleMessage)="sendUserOptionMessage($event)"></message-list>
       <message-form [userMessage]="userMessage" [messages]="messages"></message-form>
     </div>
   </nb-layout-column>
-
-  <nb-layout-footer fixed>
-
-  </nb-layout-footer>
 </nb-layout>
 
 <router-outlet></router-outlet>
