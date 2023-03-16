@@ -33,10 +33,10 @@
       </svg>
     </a>
   </nb-layout-header>
+  
+  <nb-layout-column class="simulator">
 
-  <nb-layout-column class="tracking">
-
-    <div class="stepper" *ngIf="!showResume">
+    <div class="tracking" *ngIf="!showResume">
       <nb-stepper orientation="vertical" [selectedIndex]="currentStep" disableStepNavigation>
         <nb-step [label]="label1" [completed]="step1Completed">
           <ng-template #label1>
@@ -86,58 +86,12 @@
       </nb-stepper>
     </div>
 
-    <div class="resume" *ngIf="!showResume">
-      <nb-card class="card-container">
-        <nb-card-body class="card-body">
-          <label class="resume-item-title">Valor do imóvel</label>
-          <label class="resume-item-value">R$ 100.000,00</label>
-        </nb-card-body>
-      </nb-card>
-      <nb-card class="card-container">
-        <nb-card-body class="card-body">
-          <label class="resume-item-title">Valor do crédito</label>
-          <label class="resume-item-value">R$ 58.000,00</label>
-        </nb-card-body>
-      </nb-card>
-      <nb-card class="card-container">
-        <nb-card-body class="card-body">
-          <label class="resume-item-title">Prazo</label>
-          <label class="resume-item-value">240 meses</label>
-        </nb-card-body>
-      </nb-card>
-      <nb-card class="card-container">
-        <nb-card-body class="card-body">
-          <label class="resume-item-title">Taxa de juros</label>
-          <label class="resume-item-value">23,90% a.a.</label>
-        </nb-card-body>
-      </nb-card>
-    </div>
-
-    <div class="attached-files" *ngIf="!showResume">
-      <button nbButton class="btn-attached-files" status="primary">arquivo anexado visualizar</button>
-    </div>
-    
-    <div class="resume-content" *ngIf="showResume">
-      <nb-card>
-        <nb-card-header class="resume-contet-header">
-          <nb-icon class="menu-button-icon" icon="menu-2-outline"></nb-icon>
-          Resumo
-        </nb-card-header>
-        <nb-card-body>
-          <div *ngFor="let resumeItem of resumeData" class="resume-data">
-            <label class="resume-item-value">{{resumeItem.title}}</label>
-            <br>
-            <label class="resume-item-title">{{resumeItem.value}}</label>
-          </div>
-        </nb-card-body>
-      </nb-card>
-    </div>
-
     <div class="resume-button">
       <button nbButton class="btn-resume" status="primary" (click)="toggleResume()" *ngIf="!showResume">ver resumo</button>
       <button nbButton class="btn-resume" status="primary" (click)="toggleResume()" *ngIf="showResume">ver tracking</button>
       <button nbButton class="btn-resume" status="primary" (click)="sendUserOptionMessage('Vi que você avançou para a próxima etapa.')">avançar</button>
     </div>
+
   </nb-layout-column>
 
   <nb-layout-column class="chatbot">

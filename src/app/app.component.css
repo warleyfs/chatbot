@@ -49,7 +49,7 @@
     flex: 1;
 }
 
-.stepper {
+.tracking {
     height: 50%;
 }
 
@@ -73,17 +73,12 @@
 .stepper-label-todo {
     color: gray !important;
 }
-/* 
-::ng-deep nb-layout-column {
-    justify-content: center;
-    display: flex;
-} */
 
 nb-chat {
     width: 100%;
 }
 
-.tracking {
+.simulator {
     justify-content: initial;
     flex-direction: column;
     background-color: white;
