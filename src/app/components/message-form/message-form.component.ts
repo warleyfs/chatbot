@@ -34,7 +34,7 @@ export class MessageFormComponent implements OnInit {
 
   public sendMessage(userMessageText: Message | undefined): void {
     
-    console.log(this.userMessage);
+    console.log(userMessageText);
     // Envia a mensagem do usuário para a janela de chat.
     if (userMessageText) {
       this.messages.push(userMessageText);
@@ -42,10 +42,12 @@ export class MessageFormComponent implements OnInit {
       this.messages.push(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', this.userMessage, undefined, undefined, undefined, undefined)), false));
     }
 
+    console.log(userMessageText);
+    console.log(this.userMessage);
     // Envia a(s) respostas do bot para a janela de chat
     let responses = this.getResponseByUserMessage(this.userMessage)     
     let messagesToSend = new Message('../../../assets/julio-avatar.png', new Date(), new Array<Content>(), true);
-
+    console.log(responses);
     responses.forEach(response => {
       switch (response.type) {
         case 0: // Simple Text
@@ -133,8 +135,8 @@ export class MessageFormComponent implements OnInit {
         let msg5 = new ConversationalResponse();
 
         const buttons = new Array<Button>();
-        buttons.push(new Button('Sim', '', () => { this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'Sim', undefined, undefined, undefined, undefined)), false)); }));
-        buttons.push(new Button('Não', '', () => { this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'Não', undefined, undefined, undefined, undefined)), false)); }));
+        buttons.push(new Button('Sim', '', () => { this.userMessage = 'Sim'; this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'Sim', undefined, undefined, undefined, undefined)), false)); }));
+        buttons.push(new Button('Não', '', () => { this.userMessage = 'Não'; this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'Não', undefined, undefined, undefined, undefined)), false)); }));
         
         msg5.speech = `Você autoriza o débito do valor total ou parcial da(s) parcela(s) em sua conta corrente acima indicadas, 
         na data do vencimento ou após, podendo ser utilizado o limite do cheque especial, se contratado, evitando 
@@ -186,12 +188,12 @@ export class MessageFormComponent implements OnInit {
         let msg8 = new ConversationalResponse();
 
         const buttons8 = new Array<Button>();
-        buttons8.push(new Button('O que é o crédito com garantia de imóveis?', '', () => { this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'O que é o crédito com garantia de imóveis?', undefined, undefined, undefined, undefined)), false)); }));
-        buttons8.push(new Button('Quais as taxas envolvidas neste produto?', '', () => { this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'Não', undefined, undefined, undefined, undefined)), false)); }));
-        buttons8.push(new Button('Quanto tempo leva para acontecer o crédito na conta?', '', () => { this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'Não', undefined, undefined, undefined, undefined)), false)); }));
-        buttons8.push(new Button('Posso amortizar as parcelas posteriormente?', '', () => { this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'Não', undefined, undefined, undefined, undefined)), false)); }));
-        buttons8.push(new Button('O que é IOF', '', () => { this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'Não', undefined, undefined, undefined, undefined)), false)); }));
-        buttons8.push(new Button('Como fica o valor do IOF caso eu queira incorporar no CGI?', '', () => { this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'Não', undefined, undefined, undefined, undefined)), false)); }));
+        buttons8.push(new Button('O que é o crédito com garantia de imóveis?', '', () => { this.userMessage = 'O que é o crédito com garantia de imóveis?'; this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'O que é o crédito com garantia de imóveis?', undefined, undefined, undefined, undefined)), false)); }));
+        buttons8.push(new Button('Quais as taxas envolvidas neste produto?', '', () => { this.userMessage = ''; this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'Quais as taxas envolvidas neste produto?', undefined, undefined, undefined, undefined)), false)); }));
+        buttons8.push(new Button('Quanto tempo leva para acontecer o crédito na conta?', '', () => { this.userMessage = ''; this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'Quanto tempo leva para acontecer o crédito na conta?', undefined, undefined, undefined, undefined)), false)); }));
+        buttons8.push(new Button('Posso amortizar as parcelas posteriormente?', '', () => { this.userMessage = ''; this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'Posso amortizar as parcelas posteriormente?', undefined, undefined, undefined, undefined)), false)); }));
+        buttons8.push(new Button('O que é IOF?', '', () => { this.userMessage = 'O que é IOF?'; this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'O que é IOF?', undefined, undefined, undefined, undefined)), false)); }));
+        buttons8.push(new Button('Como fica o valor do IOF caso eu queira incorporar no CGI?', '', () => { this.userMessage = 'Como fica o valor do IOF caso eu queira incorporar no CGI?'; this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'Não', undefined, undefined, undefined, undefined)), false)); }));
 
         msg8.speech = `Estou aqui para ajudar no que precisar certo? Aliás, segue alguns tópicos que são dúvidas comuns dos nossos clientes nessa etapa! Você pode usar essas dicas, ou se preferir me perguntar diretamente!`;
         msg8.type = 1;
