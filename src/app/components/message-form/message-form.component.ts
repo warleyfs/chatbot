@@ -164,26 +164,6 @@ export class MessageFormComponent implements OnInit {
         response.push(cardIOF);
 
         break;
-      // case ``:
-      //   let msg7 = new ConversationalResponse();
-      //   msg7.type = 0;
-      //   msg7.speech = ``;
-
-      //   response.push(msg7);
-      //   break;
-      // case 'Mostre-me um card.':
-      //   const buttons = new Array<Button>();
-      //   buttons.push(new Button('Botão 1', 'https://www.google.com'));
-      //   buttons.push(new Button('Botão 2', 'https://www.google.com'));
-        
-      //   response.speech = 'Texto para o card';
-      //   response.subtitle = 'Subtítulo do card';
-      //   response.title = 'Título do card';
-      //   response.imageUrl = 'https://www.mactip.net/wp-content/uploads/2016/11/macbook-battery-charge-286x180.jpg';
-      //   response.type = 1;
-      //   response.buttons = buttons;
-
-      //   break;
       case `Vi que você avançou para a próxima etapa.`:
         let msg8 = new ConversationalResponse();
 
