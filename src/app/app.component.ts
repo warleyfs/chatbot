@@ -64,6 +64,9 @@ export class AppComponent {
         case 3:
           this.sendUserOptionMessage('Confira o resumo da sua proposta e todos os dados que você preencheu.');
           break;
+        case 4:
+          this.sendUserOptionMessage('Sucesso! Sua proposta de n° 76593246 já foi enviada.');
+          break;
       }
   }
 

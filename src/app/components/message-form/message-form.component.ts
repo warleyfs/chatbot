@@ -23,10 +23,26 @@ export class MessageFormComponent implements OnInit {
   ngOnInit() {
     let initContentTemplate = new Array<Content>();
     initContentTemplate.push(new Content('simple_text', 'Que bom ter você aqui!', undefined, undefined, undefined, undefined));
-    initContentTemplate.push(new Content('simple_text', 'Eu sou o Júlio, seu assistente virtual.', undefined, undefined, undefined, undefined));
-    initContentTemplate.push(new Content('simple_text', `Agora, vamos dar continuidade no seu processo de contratação? Analisando aqui, 
-    vi que precisamos atualizar seu cadastro, Poderia por favor me informar o seu nome completo? Ah, pode ficar tranquilo, não compartilho seus dados 
-    com ninguém sua autorização, ok? Eu prometo!`, undefined, undefined, undefined, undefined));
+    initContentTemplate.push(new Content('simple_text', 'Vi que você tem interesse no crédito com garantia de imóvel.', undefined, undefined, undefined, undefined));
+    initContentTemplate.push(new Content('simple_text', 'Meu trabalho é te ajudar com o que você precisar!', undefined, undefined, undefined, undefined));
+
+    const btnDoubts = new Array<Button>();
+    btnDoubts.push(new Button('análise de crédito', '', () => { this.userMessage = 'análise de crédito'; this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'análise de crédito', undefined, undefined, undefined, undefined)), false)); }));
+    btnDoubts.push(new Button('custos em geral', '', () => { this.userMessage = 'custos em geral'; this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'custos em geral', undefined, undefined, undefined, undefined)), false)); }));
+    btnDoubts.push(new Button('avaliação do imóvel e documentação', '', () => { this.userMessage = 'avaliação do imóvel e documentação'; this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'avaliação do imóvel e documentação', undefined, undefined, undefined, undefined)), false)); }));
+    btnDoubts.push(new Button('documentos necessários', '', () => { this.userMessage = 'documentos necessários'; this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'documentos necessários', undefined, undefined, undefined, undefined)), false)); }));
+    btnDoubts.push(new Button('prazo das etapas', '', () => { this.userMessage = 'prazo das etapas'; this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'prazo das etapas', undefined, undefined, undefined, undefined)), false)); }));
+    btnDoubts.push(new Button('liberação de crédito', '', () => { this.userMessage = 'liberação de crédito'; this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'liberação de crédito', undefined, undefined, undefined, undefined)), false)); }));
+
+    const text = `Vou deixar aqui embaixo algumas possíveis dúvidas, precisando, é só clicar nelas.`;
+    const buttons = new Array<Button>();
+
+    btnDoubts.forEach(button => {
+      buttons.push(new Button(button.title, '', button.action));
+    });
+
+    initContentTemplate.push(new Content('action_buttons', text, undefined, undefined, undefined, buttons));
+    initContentTemplate.push(new Content('simple_text', 'Você também pode me fazer qualquer pergunta ou pedir para falar com um consultor.', undefined, undefined, undefined, undefined));
 
     let initMessageTemplate = new Message('../../../assets/julio-avatar.png', new Date(), initContentTemplate, true);
 
@@ -43,12 +59,10 @@ export class MessageFormComponent implements OnInit {
       this.messages.push(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', this.userMessage, undefined, undefined, undefined, undefined)), false));
     }
 
-    console.log(userMessageText);
-    console.log(this.userMessage);
     // Envia a(s) respostas do bot para a janela de chat
     let responses = this.getResponseByUserMessage(this.userMessage)     
     let messagesToSend = new Message('../../../assets/julio-avatar.png', new Date(), new Array<Content>(), true);
-    console.log(responses);
+
     responses.then(resp=> resp.forEach(response => {
       switch (response.type) {
         case 0: // Simple Text
@@ -138,26 +152,72 @@ export class MessageFormComponent implements OnInit {
     let response = new Array<ConversationalResponse>();
     
     switch (userMessage) {
-      case 'Eduarda Costa Leal':
+      case 'No Itaú, o seu empréstimo pode ser mais facilitado!':
+        
+        let cardPraSaber = new ConversationalResponse();
+        cardPraSaber.type = 2;
+        cardPraSaber.title = 'Pra você saber';
+        cardPraSaber.speech = `IOF é o imposto sobre operações financeiras, é uma arrecadação do Governo.
+        A alíquota é aplicada sobre o valor financiado, para essa proposta o valor chega aproximadamente 3%.
+        Ao incorporar, esse valor é adicionado ao valor financiamento, caso opte em não financiar o valor será 
+        descontado do montante a ser creditado no ato a liberação de recurso.`;
+
+        response.push(cardPraSaber);
+
+        let cardExemplo = new ConversationalResponse();
+        cardExemplo.type = 2;
+        cardExemplo.title = 'Exemplo';
+        cardExemplo.speech = `Simulando um crédito de R$100.000,00 aproximadamente R$3.000,00 será de 10F.
+        Se decidir incorporar ao financiamento, o valor de R$3.000,00 (referente ao IOF) será somado ao valor 
+        financiado, totalizando o saldo devedor para R$103.000,00. Caso opte em pagar o IOF, o valor do IOF 
+        será abatido do valor a ser creditado em sua conta. Ou seja, na liberação do crédito cairá R$97.000,00 
+        em sua conta, pois o banco precisa repassar o valor referente ao IOF, para o governo.`;
+
+        response.push(cardExemplo);
+
         let msg1 = new ConversationalResponse();
         msg1.type = 0;
-        msg1.speech = 'E como prefere ser chamada?';
+        msg1.speech = `Agora ficou fácil decidir, não é?`;
 
         response.push(msg1);
+
         break;
-      case 'Duda':
+      case 'Confira o resumo da sua proposta e todos os dados que você preencheu.':
         let msg2 = new ConversationalResponse();
         msg2.type = 0;
-        msg2.speech = `Legal, Duda! Agora, preciso do seu telefone para contato com o DDD. Digite por favor sem caracteres especiais, tudo junto. Por exemplo: 3199457848.`;
+        msg2.speech = `ao clicar no botão "enviar para análise" você receberá um sms com um código para validação de segurança.`;
 
         response.push(msg2);
         break;
-      case '31983174822':
-        let msg3 = new ConversationalResponse();
-        msg3.type = 0;
-        msg3.speech = `Ótimo! Agora, vou precisar do número da sua agência e conta com dígido. Exemplo: Ag xxxx C xxxxx-x.`;
+      case 'Sucesso! Sua proposta de n° 76593246 já foi enviada.':
+        let msgSucesso = new ConversationalResponse();
+        msgSucesso.type = 0;
+        msgSucesso.speech = `Em até 1 hora, você receberá um email com o resultado da sua análise de crédito.`;
         
-        response.push(msg3);
+        response.push(msgSucesso);
+
+        let msgEmail = new ConversationalResponse();
+        msgEmail.type = 0;
+        msgEmail.speech = `Em até 1 hora, você receberá um email com o resultado da sua análise de crédito.`;
+        
+        response.push(msgEmail);
+
+        let msgPrxEtapas = new ConversationalResponse();
+        msgPrxEtapas.type = 0;
+        msgPrxEtapas.speech = `Nas próximas etapas, estarei te ajudando com a documentação e os dados complementares necessários.`;
+        
+        response.push(msgPrxEtapas);
+
+        let msgFinalizar = new ConversationalResponse();
+
+        const btnFinalizar = new Array<Button>();
+        btnFinalizar.push(new Button('Seguir para os próximos passos', '', () => { this.userMessage = 'Seguir para os próximos passos'; this.sendMessage(new Message('../../../assets/user-avatar.png', new Date(), new Array<Content>(new Content('simple_text', 'Seguir para os próximos passos', undefined, undefined, undefined, undefined)), false)); }));
+        
+        msgFinalizar.speech = `Quando receber o e-mail, clique no botão abaixo.`;
+        msgFinalizar.type = 1;
+        msgFinalizar.buttons = btnFinalizar;
+
+        response.push(msgFinalizar);
         break;
       case 'Ag 1234 C 12345-0':
         let msg4 = new ConversationalResponse();
