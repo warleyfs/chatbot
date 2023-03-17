@@ -32,6 +32,7 @@ export class ChatGPTService {
         return this.http
             .post(`${this.baseURL}`, data, { headers: this.getHeaders() })
             .pipe(res => {
+                console.log(res);
                 return res;
             });
     }

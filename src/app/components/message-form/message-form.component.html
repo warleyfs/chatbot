@@ -1,5 +1,5 @@
 <div class="chatcontrol">
-    <input required fullWidth shape="round" nbInput [(ngModel)]="userMessage" (keyup.enter)="sendMessage(undefined)">
+    <input required fullWidth shape="round" nbInput [(ngModel)]="userMessage" (keyup.enter)="sendMessage(undefined)" placeholder="Digite sua mensagem aqui...">
     <nb-actions size="small" class="message-input-actions">
       <nb-action class="message-input-action-icon" icon="paper-plane-outline" pack="eva" (click)="sendMessage(undefined)"></nb-action>
       <nb-action class="message-input-action-icon" icon="mic-outline" pack="eva" (click)="sendMessage(undefined)"></nb-action>

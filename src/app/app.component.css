@@ -163,10 +163,10 @@ nb-chat {
 .chat-header {
     display: flex;
     align-items: center;
-    width: 50%;
+    width: 100%;
     background-color: white;
-    position: fixed;
-    top: 76px;
+    /* position: fixed; */
+    /* top: 76px; */
     right: -1px;
 }
 
