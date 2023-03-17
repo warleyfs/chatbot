@@ -4,6 +4,7 @@ import { NbSidebarService } from '@nebular/theme';
 import { Message } from './models';
 import { MessageFormComponent } from './components/message-form/message-form.component';
 import { Content } from './models/content';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -12,17 +13,20 @@ import { Content } from './models/content';
   providers: [ChatGPTService]
 })
 export class AppComponent {
-  showResume = false;
+  title = 'Assistente Virtual CGI';
+  
+  currentScreen: number = 1;
+  screens: number[] = [1, 2, 3, 4];
   currentStep = 1;
   step1Completed = this.currentStep >= 0;
   step2Completed = this.currentStep >= 1;
   step3Completed = this.currentStep >= 2;
   step4Completed = this.currentStep >= 3;
   step5Completed = this.currentStep >= 4;
-  title = 'Assistente Virtual CGI';
+  step6Completed = this.currentStep >= 5;
+
   userMessage: string = '';
   messages: Message[] = new Array<Message>();
-  //messages: any[] = [];
   resumeData: any[] = [
     { title: 'Nome', value: 'Eduarda Costa Leal' },
     { title: 'Telefone', value: '21918755561' },
@@ -41,15 +45,43 @@ export class AppComponent {
       avatar: '../assets/julio-avatar.png',
     }
   }
+  
+  checked = false;
 
   @ViewChild(MessageFormComponent) chatForm: MessageFormComponent | undefined;
 
   constructor(protected chatGPTService: ChatGPTService, private sidebarService: NbSidebarService) {
-    
   }
-  
-  toggleResume() {
-    this.showResume = !this.showResume;
+
+  avancar() {
+    if (this.currentScreen <= 4)
+      this.currentScreen++;
+    
+      switch (this.currentScreen) {
+        case 2:
+          this.sendUserOptionMessage('No Itaú, o seu empréstimo pode ser mais facilitado!');
+          break;
+        case 3:
+          this.sendUserOptionMessage('Confira o resumo da sua proposta e todos os dados que você preencheu.');
+          break;
+      }
+  }
+
+  voltar() {
+    if (this.currentScreen >= 1)
+      this.currentScreen--;
+
+      switch (this.currentScreen) {
+        case 1:
+          //this.sendUserOptionMessage('');
+          break;
+        case 2:
+          //this.sendUserOptionMessage('');
+          break;
+        case 3:
+          //this.sendUserOptionMessage('');
+          break;
+      }
   }
 
   getStepCompletionStatusClass(step: number) {
