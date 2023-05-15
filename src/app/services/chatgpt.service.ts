@@ -1,40 +1,38 @@
 import { Injectable } from "@angular/core";
 import { environment } from "../../environments/environment";
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators'
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class ChatGPTService {
     private baseURL = environment.chatGPT.endpoint;
     private token: string = environment.chatGPT.token;;
 
-    constructor(private http: HttpClient) { }
+    constructor() { }
 
-    public getResponse(query: string, userId: string, agent: string) {
+    public async getResponse(query: string) {
 
-        switch (agent) {
-            case 'chatbot':
-                {
-                    this.token = environment.chatGPT.token;
-                    break;
-                }
-        }
-
-        // const sessionId = crypto.AES.encrypt(userName, this.token);
-
-        const data = {
-            query: query,
-            lang: 'pt-BR',
-            sessionId: userId
-        };
-
-        return this.http
-            .post(`${this.baseURL}`, data, { headers: this.getHeaders() })
-            .pipe(res => {
-                console.log(res);
-                return res;
-            });
+        return fetch(`${this.baseURL}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${this.token}`
+                },
+                body: JSON.stringify(
+                    {
+                        "messages": [
+                            { "role": "user", "content": query }
+                        ],
+                        "model": "gpt-3.5-turbo",
+                        "temperature": 0.7,
+                        "max_tokens": 60
+                    }
+                )
+            })
+            .then(response => response.json())
+            .then(data => {
+                return data
+            })
+            .catch(error => console.log(error));
     }
 
     public getHeaders() {

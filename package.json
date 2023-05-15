@@ -20,6 +20,7 @@
     "@angular/platform-browser": "~13.3.0",
     "@angular/platform-browser-dynamic": "~13.3.0",
     "@angular/router": "~13.3.0",
+    "@aws-sdk/client-lex-runtime-v2": "^3.332.0",
     "@nebular/eva-icons": "^9.0.3",
     "@nebular/theme": "^9.0.3",
     "@reactivex/rxjs": "^6.6.7",

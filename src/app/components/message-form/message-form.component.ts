@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject } from '@angular/core';
 import { Content } from '../../models/content';
 import { Message } from './../../models';
 import { Button } from '../../models/button';
 import { ConversationalResponse } from 'src/app/models/conversational-response';
 import { environment } from "../../../environments/environment";
+import { ChatGPTService } from 'src/app/services/chatgpt.service';
 
 @Component({
   selector: 'message-form',
@@ -18,7 +19,7 @@ export class MessageFormComponent implements OnInit {
   @Input('messages')
   public messages: Message[] = new Array<Message>();
 
-  constructor() { }
+  constructor(private chatGPTService: ChatGPTService) { }
 
   ngOnInit() {
     let initContentTemplate = new Array<Content>();
@@ -112,39 +113,6 @@ export class MessageFormComponent implements OnInit {
     }
 
     return url;
-  }
-
-  private async getJSON(mensagem: string) {
-    const baseURL = environment.chatGPT.endpoint;
-    const token = environment.chatGPT.token;
-    
-    return fetch(`${baseURL}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-          },
-          body: JSON.stringify(          
-          {
-              "messages": [            
-              {"role": "user", "content": mensagem}
-              ],	
-              "model": "gpt-3.5-turbo",
-              "temperature": 0.7,
-              "max_tokens": 60
-          }          
-          )
-        })
-        .then(response => response.json())
-        .then(data => {
-          return data          
-        })
-        .catch(error => console.log(error)); 
-  }
-
-  private async caller(mensagem: string): Promise<string> {
-    const json = await this.getJSON(mensagem);  
-    return json.choices[0].message.content;
   }
 
   private async getResponseByUserMessage(userMessage: string) : Promise<Array<ConversationalResponse>> {
@@ -283,9 +251,9 @@ export class MessageFormComponent implements OnInit {
         break;
       default:        
         let msgFallback = new ConversationalResponse();
-        var value =  await this.caller(userMessage)        
+        var value = await this.chatGPTService.getResponse(userMessage);
         msgFallback.type = 0;
-        msgFallback.speech = value
+        msgFallback.speech = value.choices[0].message.content
         response.push(msgFallback);
     }
     
